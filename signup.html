@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buzz & Bites</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="icon" href="images\ChatGPT Image Apr 14, 2025, 08_25_42 PM.png" type="image/x-icon">
+    <script>
+        function displayMessageReset() {
+            alert("Alert! You Have Clicked On Reset Button, Please Fill Your Data Again");
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <section>
+        <div class="box">
+            <div class="form">
+                <div class="form_logo"><img src="images\ChatGPT Image Apr 14, 2025, 08_25_42 PM.png"></div>
+                <h2>SignUp</h2>
+                <form action="index.html">
+                    <div class="inputBox">
+                        <img src="images\img1.jpg" class="icon">
+                        <input type="text" placeholder="Username" required pattern="[a-zA-Z0-9]+" title="Only AlphaNumeric Characters Allowed">
+                    </div>
+                    <div class="inputBox">
+                        <img src="images\img2.png" class="icon">
+                        <input type="text" placeholder="Email Id" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    </div>
+                    <div class="inputBox">
+                        <img src="images\img3.png" class="icon">
+                        <input type="password" placeholder="Password" id="pass" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&]).{8,16}">
+                        <span class="show-hide"><i class="fas fa-eye" id="eye" onclick="spl()"></i></span>
+                    </div>
+                    
+                    <label class="remember"><input type="checkbox">Remember Me</label>
+                    <div class="inputBox">
+                        <input class="btn" type="submit" value="SignUp">
+                    </div>
+                </form>
+                <p>Have an <a href="login.html">Account</a>?</p>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    
+</script>
+
+</html>

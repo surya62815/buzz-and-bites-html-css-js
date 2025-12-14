@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script src="logic.js"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Buzz & Bites - Enjoy coffee, snacks, desserts & shakes in a cozy café-inspired atmosphere.">
+  <title>Buzz & Bites</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+  .footer-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-link:hover {
+    color: #0d6efd; /* Bootstrap primary blue */
+    text-decoration: underline;
+  }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f6f2;
+    }
+    .navbar {
+      background-color: #1c1b18;
+    }
+    .navbar-brand img {
+      height: 40px;
+    }
+    .nav-link {
+      color: #f0c674 !important;
+    }
+    #category-tabs .nav-link {
+  background-color: #d2b48c; /* light brown */
+  color: #1c1b18 !important;
+  margin: 0 5px;
+  border-radius: 0.5rem;
+}
+
+#category-tabs .nav-link.active {
+  background-color: #bfa07a; /* slightly darker brown for active */
+  color: #fff !important;
+}
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
+  transition: 0.3s ease;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5e1c3; /* Light brown background */
+}
+ .hero {
+      background: url('https://images.unsplash.com/photo-1511920170033-f8396924c348') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .btn-warning {
+      background-color: #f0c674;
+      border: none;
+      color: #1c1b18;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #6d4c41;
+    }
+    .card img {
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+    .footer {
+      background-color: #1c1b18;
+      color: white;
+      padding: 2rem 0;
+    }
+    .footer a {
+      color: #f0c674;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .nav-link button {
+      background: none;
+      border: none;
+      color: #f0c674;
+    }
+  </style>
+</head>
+<body>   
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand" href="#">
+      <img src="images\ChatGPT Image Apr 14, 2025, 08_25_42 PM.png" alt="Buzz & Bites Logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Login
+      </button>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item"><span class="nav-link" onclick="viewCart()" id="cart-icon">🛒 (<span id="cart-count">0</span>)</span>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>AMAZING TASTE & BEAUTIFUL PLACE</h1>
+      <p>Enjoy delightful coffee, snacks, desserts & shakes in one place</p>
+      <a href="#menu" class="btn btn-warning">View Menu</a>
+    </div>
+  </header>
+
+  <section id="menu" class="container py-5">
+    <h2 class="text-center section-title">Explore Our Menu</h2>
+    <ul class="nav nav-pills mb-4 justify-content-center" id="category-tabs">
+      <li class="nav-item">
+        <a href="javascript:void(0);" class="nav-link active" onclick="filterCategory('all')">All</a>
+      </li>      
+      <li class="nav-item"><button class="nav-link" onclick="filterCategory('coffee')">Coffee</button></li>
+      <li class="nav-item"><button class="nav-link" onclick="filterCategory('snack')">Snacks</button></li>
+      <li class="nav-item"><button class="nav-link" onclick="filterCategory('dessert')">Desserts</button></li>
+      <li class="nav-item"><button class="nav-link" onclick="filterCategory('shake')">Shakes</button></li>
+    </ul>
+    <div class="row" id="menu-items">
+      <!-- Coffee -->
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\espresso.jpeg" class="card-img-top" alt="Espresso">
+          <div class="card-body">
+            <h5 class="card-title">Espresso</h5>
+            <p class="card-text">Strong and aromatic coffee served in a small cup.</p>
+            <p><strong>$3.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Espresso', 3.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\americano.jpeg" class="card-img-top" alt="Americano">
+          <div class="card-body">
+            <h5 class="card-title">Americano</h5>
+            <p class="card-text">Espresso diluted with hot water for a smooth taste.</p>
+            <p><strong>$3.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Americano', 3.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\latte.jpeg" class="card-img-top" alt="Latte">
+          <div class="card-body">
+            <h5 class="card-title">Latte</h5>
+            <p class="card-text">Smooth espresso with steamed milk.</p>
+            <p><strong>$4.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Latte', 4.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\cappuccino.jpeg" class="card-img-top" alt="Cappuccino">
+          <div class="card-body">
+            <h5 class="card-title">Cappuccino</h5>
+            <p class="card-text">Espresso with steamed milk and frothy foam.</p>
+            <p><strong>$4.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Cappuccino', 4.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\macchiato.jpeg" class="card-img-top" alt="Macchiato">
+          <div class="card-body">
+            <h5 class="card-title">Macchiato</h5>
+            <p class="card-text">Espresso with a touch of steamed milk.</p>
+            <p><strong>$4.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Macchiato', 4.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\mocha.jpeg" class="card-img-top" alt="Mocha">
+          <div class="card-body">
+            <h5 class="card-title">Mocha</h5>
+            <p class="card-text">Espresso with chocolate syrup and steamed milk.</p>
+            <p><strong>$4.75</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Mocha', 4.75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-coffee">
+        <div class="card">
+          <img src="images\iced_coffee.jpeg" class="card-img-top" alt="Iced Coffee">
+          <div class="card-body">
+            <h5 class="card-title">Iced Coffee</h5>
+            <p class="card-text">Chilled coffee served over ice for a refreshing experience.</p>
+            <p><strong>$3.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Iced Coffee', 3.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Snacks -->
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\sandwich.jpeg" class="card-img-top" alt="Sandwich">
+          <div class="card-body">
+            <h5 class="card-title">Grilled Sandwich</h5>
+            <p class="card-text">Warm, toasted sandwich with cheese and veggies.</p>
+            <p><strong>$5.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Grilled Sandwich', 5.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\fries.jpeg" class="card-img-top" alt="Fries">
+          <div class="card-body">
+            <h5 class="card-title">French Fries</h5>
+            <p class="card-text">Crispy and golden fries served with ketchup.</p>
+            <p><strong>$3.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('French Fries', 3.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\mozarella sticks.jpeg" class="card-img-top" alt="Mozzarella Sticks">
+          <div class="card-body">
+            <h5 class="card-title">Mozzarella Sticks</h5>
+            <p class="card-text">Fried mozzarella cheese sticks with marinara sauce.</p>
+            <p><strong>$5.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Mozzarella Sticks', 5.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\nachos.jpeg" class="card-img-top" alt="Nachos">
+          <div class="card-body">
+            <h5 class="card-title">Nachos</h5>
+            <p class="card-text">Crispy tortilla chips topped with cheese and jalapenos.</p>
+            <p><strong>$4.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Nachos', 4.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\springrolls.jpeg" class="card-img-top" alt="Spring Rolls">
+          <div class="card-body">
+            <h5 class="card-title">Spring Rolls</h5>
+            <p class="card-text">Crispy spring rolls served with dipping sauce.</p>
+            <p><strong>$4.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Spring Rolls', 4.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-snack">
+        <div class="card">
+          <img src="images\popcorn.jpeg" class="card-img-top" alt="Popcorn">
+          <div class="card-body">
+            <h5 class="card-title">Popcorn</h5>
+            <p class="card-text">Lightly salted popcorn for a crunchy snack.</p>
+            <p><strong>$2.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Popcorn', 2.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desserts -->
+      <div class="col-md-3 mb-4 category-dessert">
+        <div class="card">
+          <img src="images\chocolatecake.jpeg" class="card-img-top" alt="Cake">
+          <div class="card-body">
+            <h5 class="card-title">Chocolate Cake</h5>
+            <p class="card-text">Rich and moist chocolate cake with creamy frosting.</p>
+            <p><strong>$6.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Chocolate Cake', 6.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-dessert">
+        <div class="card">
+          <img src="images\chocolatechipcookies.jpeg" class="card-img-top" alt="Cookies">
+          <div class="card-body">
+            <h5 class="card-title">Chocolate Chip Cookies</h5>
+            <p class="card-text">Freshly baked cookies with gooey chocolate chips.</p>
+            <p><strong>$3.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Chocolate Chip Cookies', 3.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-dessert">
+        <div class="card">
+          <img src="images\brwonies.jpeg" class="card-img-top" alt="Brownie">
+          <div class="card-body">
+            <h5 class="card-title">Brownie</h5>
+            <p class="card-text">Chewy and fudgy chocolate brownie.</p>
+            <p><strong>$4.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Brownie', 4.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-dessert">
+        <div class="card">
+          <img src="images\cheesecake.jpeg" class="card-img-top" alt="Cheesecake">
+          <div class="card-body">
+            <h5 class="card-title">Cheesecake</h5>
+            <p class="card-text">Creamy and smooth cheesecake with a graham cracker crust.</p>
+            <p><strong>$5.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Cheesecake', 5.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shakes -->
+      <div class="col-md-3 mb-4 category-shake">
+        <div class="card">
+          <img src="images\vanillams.jpeg" class="card-img-top" alt="Milkshake">
+          <div class="card-body">
+            <h5 class="card-title">Vanilla Milkshake</h5>
+            <p class="card-text">Smooth and creamy vanilla milkshake with whipped cream.</p>
+            <p><strong>$4.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Vanilla Milkshake', 4.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-shake">
+        <div class="card">
+          <img src="images\chocolatems.jpeg" class="card-img-top" alt="Chocolate Shake">
+          <div class="card-body">
+            <h5 class="card-title">Chocolate Milkshake</h5>
+            <p class="card-text">Rich chocolate milkshake with whipped cream and chocolate syrup.</p>
+            <p><strong>$5.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Chocolate Milkshake', 5.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-shake">
+        <div class="card">
+          <img src="images\strawberryms.jpeg" class="card-img-top" alt="Strawberry Shake">
+          <div class="card-body">
+            <h5 class="card-title">Strawberry Milkshake</h5>
+            <p class="card-text">Delicious strawberry milkshake topped with whipped cream.</p>
+            <p><strong>$5.00</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Strawberry Milkshake', 5.00)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4 category-shake">
+        <div class="card">
+          <img src="images\mangoms.jpeg" class="card-img-top" alt="Mango Shake">
+          <div class="card-body">
+            <h5 class="card-title">Mango Milkshake</h5>
+            <p class="card-text">Sweet mango milkshake with a creamy texture.</p>
+            <p><strong>$5.50</strong></p>
+            <button class="btn btn-warning" onclick="addToCart('Mango Milkshake', 5.50)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Your existing JS
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cart logic, adding items, etc.
+    });
+  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 🧹 Clear the cart when the page loads
+    localStorage.removeItem('cart');
+
+    // Your existing cart logic...
+  });
+</script>
+  
+  <footer style="background-color: #3e2723;" class="text-white pt-5 pb-3 mt-5">
+    <div class="container">
+      <div class="row text-center text-md-start">
+  
+        <!-- Contact Info -->
+        <div class="col-md-4 mb-4">
+          <h5 class="text-uppercase fw-bold mb-3">Contact</h5>
+          <p class="mb-1">
+            <i class="bi bi-telephone-fill me-2"></i>
+            <a href="tel:+11234567890" class="footer-link">+1 (123) 456-7890</a>
+          </p>
+          <p>
+            <i class="bi bi-envelope-fill me-2"></i>
+            <a href="mailto:support@buzzandbites.com" class="footer-link">support@buzzandbites.com</a>
+          </p>
+        </div>
+  
+        <!-- Location -->
+        <div class="col-md-4 mb-4">
+          <h5 class="text-uppercase fw-bold mb-3">Visit Us</h5>
+          <p class="mb-1">
+            <i class="bi bi-geo-alt-fill me-2"></i>Buzz & Bites Café
+          </p>
+          <p>
+            <a href="https://www.google.com/maps/search/?api=1&query=123+Coffee+Street,+Beanville,+CA+90210"
+               target="_blank"
+               class="footer-link">
+              123 Coffee Street, Beanville, CA 90210
+            </a>
+          </p>
+        </div>
+  
+        <!-- Opening Hours -->
+        <div class="col-md-4 mb-4">
+          <h5 class="text-uppercase fw-bold mb-3">Opening Hours</h5>
+          <p class="mb-1">
+            <i class="bi bi-clock-fill me-2"></i>Mon – Fri: 8:00 AM – 8:00 PM
+          </p>
+          <p>
+            <i class="bi bi-clock-fill me-2"></i>Sat – Sun: 9:00 AM – 6:00 PM
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+   <!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content login_form">
+      <div class="details p-4">
+        <div class="welcome mb-3">Buzz & Bites</div>
+        <form onsubmit="return login()">
+          <div class="wrap mb-3">
+            <label>Email</label>
+            <input type="text" class="form-control" id="email">
+          </div>
+          <div class="wrap mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" id="pwd1">
+          </div>
+          <div class="wrap mb-3 text-end">
+            <a href="#" title="Forgot Password" id="link-reset">Forgot Password?</a>
+          </div>
+          <button class="btn btn-warning w-100" type="submit"><h5 class="m-0">Sign in!</h5></button>
+        </form>
+      </div>
+      <div class="details-two text-center p-4">
+        <h1 class="back">Welcome back!</h1>
+        <p class="log">Log in and use the opportunities offered by our portal.</p>
+        <h2 class="acc">Don't have an account?</h2>
+        <button class="btn btn-outline-light signup mt-2" onclick="signup()">Sign Up!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
